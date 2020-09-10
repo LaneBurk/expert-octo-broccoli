@@ -22,7 +22,7 @@ c14 = number of times through opening
 c15 = number of times incorrect input used
 """
 key = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-n = randint(-999,1000)
+n = randint(-99,100)
 learned = []
 #inital function definition
 def num_of_factors(n,key):
@@ -399,7 +399,7 @@ def win(key):
     again = input("Would you like to play again? Y/N\n")
     if again == "Y" or again == "y":
         key = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-        n = randint(-999,1000)
+        n = randint(-99,100)
         learned = []
         print("Ok, here's a fresh start. Try for a better score!")
         gameloop(n,key,learned)
