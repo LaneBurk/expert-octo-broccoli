@@ -1,0 +1,605 @@
+#initial variable definition
+from math import sqrt
+from random import sample
+from random import shuffle
+from random import randint
+"""
+q0 = greater
+q1 = less
+q2 = positive
+q3 = prime
+q4 = multiple
+q5 = cluster
+q6 = is_square
+q7 = is_cube
+q8 = randdigit
+q9 = num_of_letters_formatted
+q10 = num_of_factors
+c11 = how many times they try to ask a repeat question
+c12 = how many questions have they asked
+c13 = number of times guessed
+c14 = number of times through opening
+c15 = number of times incorrect input used
+"""
+key = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+n = randint(-999,1000)
+learned = []
+#inital function definition
+def num_of_factors(n,key):
+    if key[3] != 2:
+        if key[10] != 2:        
+            key[10] += 1
+            key[12] += 1
+            lyst = []
+            for i in range(1,n+1):
+                if n%i == 0:
+                    lyst.append(i)
+            return len(lyst)
+        else:
+            key[11] += 1
+            if key[11] == 1:
+                print("\nI've already told you", key[11], "time that you can only ask each question twice\n")
+                gameloop(n,key,learned)
+            else:
+                print("\nI've already told you", key[11], "times that you can only ask each question twice\n")
+                gameloop(n,key,learned)
+def cluster(n,key):
+    if key[5] != 2:
+        key[5] += 1
+        key[12] += 1
+        clusterlyst = (sample(range(-999,1000),9))
+        try:
+            if clusterlyst.index(n) != "a":
+                cluster(n,key)
+        except:
+            clusterlyst.append(n)
+            shuffle(clusterlyst)
+            return clusterlyst
+    else:
+        key[11] += 1
+        if key[11] == 1:
+            print("\nI've already told you", key[11], "time that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+        else:
+            print("\nI've already told you", key[11], "times that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+def is_square(n,key):
+    if key[6] != 2:
+        key[6] += 1
+        key[12] += 1
+        if abs(n) != n:
+            return False
+        if int(sqrt(n)) == sqrt(n):
+            return True
+        else:
+            return False
+    else:
+        key[11] += 1
+        if key[11] == 1:
+            print("\nI've already told you", key[11], "time that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+        else:
+            print("\nI've already told you", key[11], "times that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+def is_cube(n,key):
+    if key[7] != 2:
+        key[7] += 1
+        key[12] += 1
+        n = abs(n)
+        root = round(n**(1/3))
+        if root**3 == n:
+            return True
+        else:
+            return False
+    else:
+        key[11] += 1
+        if key[11] == 1:
+            print("\nI've already told you", key[11], "time that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+        else:
+            print("\nI've already told you", key[11], "times that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+def multiple(n,x,key):
+    if key[4] != 2:
+        key[4] += 1
+        x = int(x)
+        if n%x == 0:
+            return True
+        else:
+            return False
+    else:
+        key[11] += 1
+        if key[11] == 1:
+            print("\nI've already told you", key[11], "time that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+        else:
+            print("\nI've already told you", key[11], "times that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+def prime(n,key):
+    if key[3] != 2:
+        key[3] += 1
+        key[12] += 1
+        primelyst = []
+        for x in range(1,n+1):
+            if n%x == 0:
+                primelyst.append(x)
+        if len(primelyst) == 2:
+            return True
+        else:
+            return False
+    else:
+        key[11] += 1
+        if key[11] == 1:
+            print("\nI've already told you", key[11], "time that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+        else:
+            print("\nI've already told you", key[11], "times that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+def randdigit(n,key):
+    if key[8] != 2:
+        key[8] += 1
+        key[12] += 1
+        n = str(n)
+        validdigits = [i for i in "0123456789" if i not in n]
+        shuffle(validdigits)
+        return validdigits[0]
+    else:
+        key[11] += 1
+        if key[11] == 1:
+            print("\nI've already told you", key[11], "time that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+        else:
+            print("\nI've already told you", key[11], "times that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+def number_of_letters(n):
+    if n < 0:
+        chars = 8
+        n = -1*n
+    else:
+        chars = 0
+    n = str(n)
+    if len(n) == 3:
+        for a in range(1,10):
+            if int(n[0]) == a:
+                first = a
+        if first == 1 or first == 2 or first == 6:
+            chars += 10
+        elif first == 3 or first == 7 or first == 8:
+            chars += 12
+        elif first == 4 or first == 5 or first == 9:
+            chars += 11
+        for b in range(10):
+            if int(n[1]) == b:
+                second = b
+        if second == 0:
+            for c in range(0,10):
+                if int(n[2]) == c:
+                    third1 = c
+            if third1 == 0:
+                return chars
+            elif third1 == 1 or third1 == 2 or third1 == 6:
+                chars += 6
+            elif third1 == 4 or third1 == 5 or third1 == 9:
+                chars += 7
+            elif third1 == 3 or third1 == 7 or third1 == 8:
+                chars += 8
+            return chars
+        elif second == 1:
+            for c in range(0,10):
+                if int(n[2]) == c:
+                    third1 = c
+            if third1 == 0:
+                chars += 6
+            elif third1 == 1 or third1 == 2:
+                chars += 9
+            elif third1 == 3 or third1 == 4 or third1 > 7:
+                chars += 11
+            elif third1 == 5 or third1 == 6:
+                chars += 10
+            elif third1 == 7:
+                chars += 12
+            return chars
+        elif second < 5 or second > 7:
+            chars += 9
+        elif second == 5 or second == 6:
+            chars += 8
+        elif second == 7:
+            chars += 10
+        for d in range(0,10):
+                if int(n[2]) == d:
+                    third = d
+        if third == 0:
+            return chars
+        elif third < 3 or third == 6:
+                 chars += 3
+        elif third == 4 or third == 5 or third == 9:
+                chars += 4
+        elif third == 3 or third == 7 or third == 8:
+                chars += 5
+        return chars
+    if len(n) == 2:
+        for b in range(10):
+            if int(n[0]) == b:
+                second = b
+        if second == 1:
+            for c in range(0,10):
+                if int(n[1]) == c:
+                    third1 = c
+            if third1 == 0:
+                chars += 3
+            elif third1 == 1 or third1 == 2:
+                chars += 6
+            elif third1 == 3 or third1 == 4 or third1 > 7:
+                chars += 8
+            elif third1 == 5 or third1 == 6:
+                chars += 7
+            elif third1 == 7:
+                chars += 9
+            return chars
+        elif second < 5 or second > 7:
+            chars += 6
+        elif second == 5 or second == 6:
+            chars += 5
+        elif second == 7:
+            chars += 7
+        for d in range(0,10):
+                if int(n[1]) == d:
+                    third = d
+        if third == 0:
+            return chars
+        elif third < 3 or third == 6:
+                 chars += 3
+        elif third == 4 or third == 5 or third == 9:
+                chars += 4
+        elif third == 3 or third == 7 or third == 8:
+                chars += 5
+        return chars
+    if len(n) == 1:
+        for d in range(0,10):
+                if int(n[0]) == d:
+                    third = d
+        if third == 0:
+            chars += 4
+        elif third < 3 or third == 6:
+                 chars += 3
+        elif third == 4 or third == 5 or third == 9:
+                chars += 4
+        elif third == 3 or third == 7 or third == 8:
+                chars += 5
+        return chars
+def number_of_letters_formatted(n,key):
+    if key[9] != 2:
+        key[9] += 1
+        key[12] += 1
+        return number_of_letters(n)
+    else:
+        key[11] += 1
+        if key[11] == 1:
+            print("\nI've already told you", key[11], "time that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+        else:
+            print("\nI've already told you", key[11], "times that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+def greater(n,x,key):
+    if key[0] != 2:
+        key[0] += 1
+        key[12] += 1
+        x = int(x)
+        if n > x:
+            return True
+        else:
+            return False
+    else:
+        key[11] += 1
+        if key[11] == 1:
+            print("\nI've already told you", key[11], "time that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+        else:
+            print("\nI've already told you", key[11], "times that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+def less(n,x,key):
+    if key[1] != 2:
+        key[1] += 1
+        key[12] += 1
+        x = int(x)
+        if n < x:
+            return True
+        else:
+            return False
+    else:
+        key[11] += 1
+        if key[11] == 1:
+            print("\nI've already told you", key[11], "time that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+        else:
+            print("\nI've already told you", key[11], "times that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+def positive(n,key):
+    if key[2] != 2:
+        key[2] += 1
+        key[12] += 1
+        if n > 0:
+            return True
+        else:
+            return False
+    else:
+        key[11] += 1
+        if key[11] == 1:
+            print("\nI've already told you", key[11], "time that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+        else:
+            print("\nI've already told you", key[11], "times that you can only ask each question twice\n")
+            gameloop(n,key,learned)
+def guess(n,x,key):
+    x = int(x)
+    if n == x:
+        return True
+    else:
+        key[13] += 1
+        return False
+def understandinfinite():
+    print("Welcome to the Guessing Game! You will be guessing a whole number between -999 and 999. Your score will be lowered for every question you ask, and for every incorrect guess you make. At any time you may either ask a question or try to guess the number, but each question may only be asked once. Do you understand? Y/N")
+    input1 = input()
+    if input1 == "N" or input1 == "n":
+        understandinfinite()
+    else:
+        print("We're far past the point where that ceased to matter")
+        input()
+        understandinfinite()
+def doyouunderstand(key):
+    key[14] += 1
+    if key[14] >= 3:
+        print("You've been here a while, better go back before you forget how. Y/N")
+        inputunderstand1 = input()
+        if inputunderstand1 == "N" or inputunderstand1 == "n":
+                understandinfinite()
+    else:
+        print("Welcome to the Guessing Game! You will be guessing a whole number between -999 and 999. Your score will be lowered for every question you ask, and for every incorrect guess you make. At any time you may either ask a question or try to guess the number, but each question may only be asked once. Do you understand? Y/N")
+        inputunderstand1 = input()
+        if inputunderstand1 == "N" or inputunderstand1 == "n":
+            doyouunderstand(key)
+        if inputunderstand1 == "Y" or inputunderstand1 == "y":
+            return
+        if inputunderstand1 == "N" or inputunderstand1 == "n":
+            return
+        else:
+            print("I'll take that as a yes, but try to follow the directions next time")
+            key[15] += 1
+            return
+def win(key):
+    try:
+        score = int(1000*(1/(key[12] + key[13])))
+    except:
+        score = 1000
+    #here is where the score will be stored and saved
+    if key[15] != 1:
+        if score == 1000:
+            print("You played a perfect game. You asked 0 questions and got the answer on your first guess. Are you cheating or just lucky? You failed to follow instructions", key[15],"times.")
+        elif key[12]%2 == 0 and key[13]%2 == 0:       
+            print("Your final score is",score,". You asked",key[12],"questions and guessed incorrectly",key[13],"times. You failed to follow instructions", key[15],"times.")
+        elif key[12]%2 == 0 and key[13]%2 != 0:       
+            print("Your final score is",score,". You asked",key[12],"questions and guessed incorrectly",key[13],"time. You failed to follow instructions", key[15],"times.")
+        elif key[12]%2 != 0 and key[13]%2 == 0:       
+            print("Your final score is",score,". You asked",key[12],"question and guessed incorrectly",key[13],"times. You failed to follow instructions", key[15],"times.")
+        elif key[12]%2 != 0 and key[13]%2 != 0:       
+            print("Your final score is",score,". You asked",key[12],"question and guessed incorrectly",key[13],"time. You failed to follow instructions", key[15],"times.")    
+    if key[15] == 1:
+        if score == 1000:
+            print("You played a perfect game. You asked 0 questions and got the answer on your first guess. Are you cheating or just lucky? You failed to follow instructions", key[15],"time.")
+        elif key[12]%2 == 0 and key[13]%2 == 0:       
+            print("Your final score is",score,". You asked",key[12],"questions and guessed incorrectly",key[13],"times. You failed to follow instructions", key[15],"time.")
+        elif key[12]%2 == 0 and key[13]%2 != 0:       
+            print("Your final score is",score,". You asked",key[12],"questions and guessed incorrectly",key[13],"time. You failed to follow instructions", key[15],"time.")
+        elif key[12]%2 != 0 and key[13]%2 == 0:       
+            print("Your final score is",score,". You asked",key[12],"question and guessed incorrectly",key[13],"times. You failed to follow instructions", key[15],"time.")
+        elif key[12]%2 != 0 and key[13]%2 != 0:       
+            print("Your final score is",score,". You asked",key[12],"question and guessed incorrectly",key[13],"time. You failed to follow instructions", key[15],"time.")            
+    name = input("What name would you like recorded for the leaderboards?\n")
+    leaderboard(name, str(score))
+    again = input("Would you like to play again? Y/N\n")
+    if again == "Y" or again == "y":
+        key = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        n = randint(-999,1000)
+        learned = []
+        print("Ok, here's a fresh start. Try for a better score!")
+        gameloop(n,key,learned)
+    else:
+        print("Ok, hope you play again soon!")
+        input()
+        exit()
+def gameloop(n,key,learned):
+    if key[3] == 0:
+        print(" ")
+        print("You may ask any of the following questions, or make a guess. Select your option by inputting the number it is listed as, i.e. 1")
+        print("1. Is the number greater than x?")
+        print("2. Is the number less than x?")
+        print("3. Is the number positive?")
+        print("4. Is the number prime?")
+        print("5. Is the number a multiple of x?")
+        print("6. Will you show me an array of random numbers that includes the number?")
+        print("7. Is my number a perfect square?")
+        print("8. Is my number a perfect cube?")
+        print("9. Will you show me a digit?")
+        print("10. How many letters would be in my number if it were spoken aloud?")
+        print("11. I would like to make a guess")
+        print("12. What have I learned?")
+        print("13. I give up. What was the number?\n")
+    if key[3] == 1:
+        print(" ")
+        print("You may ask any of the following questions, or make a guess. Select your option by inputting the number it is listed as, i.e. 1")
+        print("1. Is the number greater than x?")
+        print("2. Is the number less than x?")
+        print("3. Is the number positive?")
+        print("4. Since its not prime, how many factors does the number have?")
+        print("5. Is the number a multiple of x?")
+        print("6. Will you show me an array of random numbers that includes the number?")
+        print("7. Is my number a perfect square?")
+        print("8. Is my number a perfect cube?")
+        print("9. Will you show me a digit?")
+        print("10. How many letters would be in my number if it were spoken aloud?")
+        print("11. I would like to make a guess.")
+        print("12. What have I learned?")
+        print("13. I give up. What was the number?\n")
+    userinp = input("Which question would you like to ask?\n")
+    if userinp == "1":
+        print("What value of x would you like to ask about?")
+        x = int(input())
+        answer1 = greater(n,x,key)
+        if answer1 == True:
+            learned.append("The number is greater than "+ str(x))
+            print("\nThe number is greater than", str(x)+".\n")
+            gameloop(n,key,learned)
+        if answer1 == False:
+            learned.append("The number is not greater than "+ str(x))
+            print("\nThe number is not greater than", str(x)+".\n")
+            gameloop(n,key,learned)
+    if userinp == "2":
+        print("\nWhat value of x would you like to ask about?\n")
+        x = int(input())
+        answer2 = less(n,x,key)
+        if answer2 == True:
+            learned.append("The number is less than "+ str(x))
+            print("\nThe number is less than", str(x)+".\n")
+            gameloop(n,key,learned)
+        if answer2 == False:
+            learned.append("The number is not greater than " + str(x))
+            print("\nThe number is not less than", str(x)+".\n")
+            gameloop(n,key,learned)
+    if userinp == "3":
+        answer3 = positive(n,key)
+        if answer3 == True:
+            learned.append("The number is positive")
+            print("\nThe number is positive.\n")
+            gameloop(n,key,learned)
+        if answer3 == False:
+            learned.append("The number is not positive")
+            print("\nThe number is not positive.\n")
+            gameloop(n,key,learned)
+    if userinp == "4":
+        if key[3] == 0:
+            answer4 = prime(n,key)
+            if answer4 == True:
+                learned.append("The number is prime")
+                print("\nThe number is prime.\n")
+                gameloop(n,key,learned)
+            if answer4 == False:
+                learned.append("The number is not prime")
+                print("\nThe number is not prime.\n")
+                gameloop(n,key,learned)
+        if key[3] == 1:
+            answer5 = num_of_factors(n, key)
+            learned.append("The number has "+str(answer5)+" factors")
+            print("\nThe number has",str(answer5),"factors.\n")
+            gameloop(n,key,learned)
+    if userinp == "5":
+        print("What value of x do you want to ask for?")
+        x = input()
+        answer6 = multiple(n, x, key)
+        if answer6 == True:
+            learned.append("The number is a multiple of "+str(x)+".")
+            print("\nThe number is a multiple of",str(x)+".\n")
+            gameloop(n,key,learned)
+        if answer6 == False:
+            learned.append("The number is not a multiple of "+str(x)+".")
+            print("\nThe number is not a multiple of",str(x)+".\n")
+            gameloop(n,key,learned)
+    if userinp == "6":
+        answer6 = cluster(n,key)
+        learned.append("The number is one of these numbers:"+str(answer6))
+        print("\nOf course! The number is one of these numbers:",str(answer6)+".\n")
+        gameloop(n,key,learned)
+    if userinp == "7":
+        answer7 = is_square(n,key)
+        if answer7 == True:
+            learned.append("The number is a perfect square")
+            print("\nThe number is a perfect square.\n")
+            gameloop(n,key,learned)
+        if answer7 == False:
+            learned.append("The number is not a perfect square")
+            print("\nThe number is not a perfect square.\n")
+            gameloop(n,key,learned)
+    if userinp == "8":
+        answer8 = is_cube(n,key)
+        if answer8 == True:
+            learned.append("The number is a perfect cube")
+            print("\nThe number is a perfect cube.\n")
+            gameloop(n,key,learned)
+        if answer8 == False:
+            learned.append("The number is not a perfect cube")
+            print("\nThe number is not a perfect cube.\n")
+            gameloop(n,key,learned)
+    if userinp == "9":
+        answer9 = randdigit(n,key)
+        learned.append("The number does not have a "+str(answer9)+" in it")
+        print("\nYour digit is",str(answer9)+",","but I don't know why you would care,",str(answer9),"is not related to the number in any way.\n")
+        gameloop(n,key,learned)
+    if userinp == "10":
+        answer10 = number_of_letters_formatted(n,key)
+        learned.append("The number has "+str(answer10)+" letters in it")
+        print("\nThe number has",answer10,"letters in it.\n")
+        gameloop(n,key,learned)
+    if userinp == "11":
+        x = input("What number do you want to guess?\n")
+        answer11 = guess(n,x,key)
+        if answer11 == True:
+            print("\nCongragulations! You've correctly guessed the number.\n")
+            win(key)
+        elif answer11 == False:
+            print("\nI'm sorry, that is not correct.\n")
+            gameloop(n,key,learned)
+    if userinp == "12":
+        key[12] += 1
+        if learned == []:
+            print("\nSo far you have learned nothing. Try asking some questions!\n")
+        if learned != []:
+            print("\nSo far you have learned", str(learned)+".\n")
+        gameloop(n,key,learned)
+    if userinp == "13":
+        print("Better luck next time! The number for this round was", str(n)+ ".")
+        again = input("Would you like to play again? Y/N\n")
+        if again == "Y" or again == "y":
+            key = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            n = randint(-999,1000)
+            learned = []
+            print("Ok, here's a fresh start. Try for a better score!")
+            gameloop(n,key,learned)
+        else:
+            print("Ok, hope you play again soon!")
+            input()
+            exit()
+    else:
+        print("\nPlease enter the number for a valid question.\n")
+        key[15] += 1
+        gameloop(n,key,learned)
+def leaderboard(name, score):
+    with open("leaderboard.txt", "r+") as f:
+        contents = f.read().splitlines()
+    leaderboard = []
+    for x in range(len(contents)):
+        leaderboard.append([contents[x][:contents[x].index(": ")],int(contents[x][contents[x].index(": ")+2:])])
+    leaderboard.append([str(name),score])
+    leaderboard = sorted(leaderboard, key = lambda x:x[1], reverse=True)
+    with open("leaderboard.txt","w+") as f:
+        for x in range(len(leaderboard)):
+            f.write(leaderboard[x][0]+": "+str(leaderboard[x][1])+"\n")
+    print("\nHere are the current top 3 scores:")
+    with open("leaderboard.txt", "r+") as f:
+        final_contents = f.read().splitlines()
+    try:
+        for x in range(3):
+            print(final_contents[x])
+    except:
+        x = 1
+#actual game code
+print("Welcome to the Guessing Game! You will be guessing a whole number between -999 and 999. Your score will be lowered for every question you ask, and for every incorrect guess you make. At any time you may either ask a question or try to guess the number, but each question may only be asked once. Do you understand? Y/N")
+input1 = input()
+if input1 == "N" or input1 == "n":
+    doyouunderstand(key)
+elif input1 == "Y" or input1 == 'y':
+    print("\nOk then, let's get started.\n")
+elif input1 != "Y" and input1 != "N" and input1 != "y" and input1 != "n":
+    key[15] += 1
+    print("\nI'll take that as a yes, but try to follow the directions next time\n")
+if input1 == "N" or input1 == "n":
+    print("\nOk then, let's get started.\n")
+gameloop(n,key,learned)
